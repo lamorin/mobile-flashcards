@@ -19,7 +19,7 @@ const App = () => {
           {(props) => <ScreenDecks {...props} data={DATA} />}
         </Stack.Screen>
         <Stack.Screen name="Deck" options={{ title: "Deck" }}>
-          {(props) => <ScreenDeck />}
+          {(props) => <ScreenDeck {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

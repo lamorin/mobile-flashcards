@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 
-export default function Deck({ title, numberOfQuestions, navigation }) {
+export default function Deck({ deckId, title, numberOfQuestions, navigation }) {
   const onPresHandler = () => {
-    alert("ALERT");
-    navigation.navigate("Deck");
+    navigation.navigate("Deck", {
+      deckId: deckId,
+      otherParam: "anything you want here",
+    });
   };
 
   return (

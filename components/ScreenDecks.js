@@ -6,6 +6,7 @@ import Deck from "./Deck";
 export default function ScreenDecks({ data, navigation }) {
   const deck = ({ item }) => (
     <Deck
+      deckId={item.id}
       navigation={navigation}
       title={item.title}
       numberOfQuestions={item.numberOfQuestions || 0}

@@ -3,10 +3,14 @@ import { SafeAreaView, Text } from "react-native";
 
 import Deck from "./Deck";
 
-export default function ScreenDeck({ data, navigation }) {
+export default function ScreenDeck({ data, navigation, route }) {
+  const { deckId, otherParam } = route.params;
+
   return (
     <SafeAreaView>
-      <Text>Deck</Text>
+      <Text>
+        Deck: {deckId} | {otherParam}
+      </Text>
     </SafeAreaView>
   );
 }
