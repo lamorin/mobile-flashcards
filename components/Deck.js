@@ -1,13 +1,24 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 
-export default function Deck({ title, numberOfQuestions }) {
-  numberOfQuestions = 0;
+export default function Deck({ title, numberOfQuestions, navigation }) {
+  const onPresHandler = () => {
+    alert("ALERT");
+    navigation.navigate("Deck");
+  };
+
   return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>Questions: {numberOfQuestions}</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={onPresHandler}>
+      <View
+        style={styles.item}
+        onPress={() => {
+          navigation;
+        }}
+      >
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>Questions: {numberOfQuestions}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

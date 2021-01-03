@@ -1,7 +1,17 @@
 import React from "react";
 import { SafeAreaView, FlatList, StyleSheet, StatusBar } from "react-native";
 
-export default function ScreenDecks({ data, deck }) {
+import Deck from "./Deck";
+
+export default function ScreenDecks({ data, navigation }) {
+  const deck = ({ item }) => (
+    <Deck
+      navigation={navigation}
+      title={item.title}
+      numberOfQuestions={item.numberOfQuestions || 0}
+    ></Deck>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
