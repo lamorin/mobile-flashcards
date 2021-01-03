@@ -6,7 +6,7 @@ export default function Deck({ title, numberOfQuestions }) {
   return (
     <View style={styles.item}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{numberOfQuestions}</Text>
+      <Text style={styles.subtitle}>Questions: {numberOfQuestions}</Text>
     </View>
   );
 }
@@ -14,7 +14,7 @@ export default function Deck({ title, numberOfQuestions }) {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "#0371fc",
-    padding: 20,
+    padding: 16,
     marginVertical: 4,
     marginHorizontal: 18,
   },
