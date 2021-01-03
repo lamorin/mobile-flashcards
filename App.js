@@ -16,7 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Decks">
+        <Stack.Screen name="Decks" options={{ title: "Decks" }}>
           {(props) => <ScreenDecks {...props} data={DATA} deck={deck} />}
         </Stack.Screen>
       </Stack.Navigator>
