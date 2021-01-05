@@ -3,11 +3,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ScreenDecks from "./components/ScreenDecks";
-import ScreenDeck from "./components/ScreenDeck";
+import Decks from "./components/Decks";
 import Deck from "./components/Deck";
-
-import DATA from "./helpers/DATA";
 
 const Stack = createStackNavigator();
 
@@ -15,12 +12,15 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Decks" options={{ title: "Decks" }}>
-          {(props) => <ScreenDecks {...props} data={DATA} />}
-        </Stack.Screen>
-        <Stack.Screen name="Deck" options={{ title: "Deck" }}>
-          {(props) => <ScreenDeck {...props} />}
-        </Stack.Screen>
+        <Stack.Screen name="Decks" component={Decks} />
+        <Stack.Screen
+          name="Deck"
+          component={Deck}
+          options={({ route }) => ({
+            title: route.params.title,
+            deckId: route.params.index,
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
