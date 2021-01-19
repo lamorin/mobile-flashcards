@@ -4,8 +4,8 @@ import { Button, Pressable, View, StyleSheet, Text } from "react-native";
 import DATA from "../helpers/DATA";
 import Decks from "./Decks";
 
-export default function Deck({ data, navigation, route }) {
-  const { index } = route.params;
+export default function StartQuiz({ data, navigation, route }) {
+  const { index, title } = route.params;
 
   let [isFront, setIsFront] = useState(true);
 
@@ -14,7 +14,8 @@ export default function Deck({ data, navigation, route }) {
   let card = deck.cards[0];
 
   const pressHandler = () => {
-    setIsFront(!isFront);
+    //setIsFront(!isFront);
+    navigation.navigate("Quiz", { index, title });
   };
 
   if (deck.cards.length === 0) {
@@ -29,16 +30,14 @@ export default function Deck({ data, navigation, route }) {
     <View style={styles.container}>
       <View style={styles.cardContainer}>
         <Pressable style={styles.card} onPress={pressHandler}>
-          <Text style={styles.title}>
-            {isFront ? card.faceText : card.backText}
-          </Text>
+          <Text style={styles.title}>Start Quiz</Text>
         </Pressable>
       </View>
-      {/* <View style={styles.buttonsContainer}>
-        <Button style={styles.button} title={"Add"}>
+      <View style={styles.buttonsContainer}>
+        <Button style={styles.button} title={"Add Card"}>
           Bouton
         </Button>
-  </View> */}
+      </View>
     </View>
   );
 }

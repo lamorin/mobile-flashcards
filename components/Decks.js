@@ -38,7 +38,7 @@ function DeckItem(props) {
   const title = deck.title;
 
   const onDeckPress = () => {
-    props.navigation.navigate("Deck", { index, title });
+    props.navigation.navigate("StartQuiz", { index, title });
   };
 
   return (

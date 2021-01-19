@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
+import StartQuiz from "./components/StartQuiz";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,15 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Decks" component={Decks} />
         <Stack.Screen
-          name="Deck"
+          name="StartQuiz"
+          component={StartQuiz}
+          options={({ route }) => ({
+            title: route.params.title,
+            deckId: route.params.index,
+          })}
+        />
+        <Stack.Screen
+          name="Quiz"
           component={Deck}
           options={({ route }) => ({
             title: route.params.title,
