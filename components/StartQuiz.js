@@ -28,6 +28,7 @@ export default function StartQuiz({ data, navigation, route }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.questionsNumber}>Questions: {deck.cards.length}</Text>
       <View style={styles.cardContainer}>
         <Pressable style={styles.card} onPress={pressHandler}>
           <Text style={styles.title}>Start Quiz</Text>
@@ -50,6 +51,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
     justifyContent: "center",
+  },
+  questionsNumber: {
+    textAlign: "right",
   },
   card: {
     justifyContent: "center",
