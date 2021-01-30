@@ -62,9 +62,12 @@ export default function StartQuiz({ navigation, route }) {
           <Text style={styles.title}>Start a Quiz</Text>
         </Pressable>
       </View>
-      <View style={styles.buttonsContainer}>
-        <Button style={styles.button} title={"Add Card"} />
-      </View>
+      <TouchableOpacity
+        style={[buttonStyle.touchable, { width: 150 }]}
+        onPress={newCardHandler}
+      >
+        <Text style={buttonStyle.touchableText}>Create New Card</Text>
+      </TouchableOpacity>
     </View>
   );
 }

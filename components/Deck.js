@@ -17,10 +17,21 @@ export default function Deck({ data, navigation, route }) {
 
   let [currentCardIndex, setCurrentCardIndex] = useState(0);
   let [deckState, setDeckState] = useState(DECK_STARTED);
+  let [correct, setCorrect] = useState(0);
+  let [wrong, setWrong] = useState(0);
 
   let card = deck.cards[currentCardIndex || 0];
 
   const lastIndex = deck.cards.length - 1;
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      restartHandler();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   const pressHandler = () => {
     if (isFront) {
@@ -28,6 +39,7 @@ export default function Deck({ data, navigation, route }) {
   };
 
   const correctAnswerHandler = () => {
+    setCorrect(correct + 1);
     currentCardIndex === deck.cards.length - 1 && setDeckState(DECK_FINISHED);
     deckState !== DECK_FINISHED &&
       setIsFront(true) &&
@@ -36,6 +48,7 @@ export default function Deck({ data, navigation, route }) {
   };
 
   const wrongAnswerHandler = () => {
+    setWrong(wrong + 1);
     currentCardIndex === deck.cards.length - 1 && setDeckState(DECK_FINISHED);
     deckState !== DECK_FINISHED &&
       setIsFront(true) &&
@@ -46,6 +59,8 @@ export default function Deck({ data, navigation, route }) {
     setCurrentCardIndex(0);
     setDeckState(DECK_STARTED);
     setIsFront(true);
+    setCorrect(0);
+    setWrong(0);
   };
 
   const showAnswerHandler = () => {
@@ -63,7 +78,8 @@ export default function Deck({ data, navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.questionsNumber}>
-        Questions remaining: {deck.cards.length - currentCardIndex - 1}
+        Questions remaining:{" "}
+        {deckState === DECK_FINISHED ? 0 : deck.cards.length - currentCardIndex}
       </Text>
       <View style={styles.cardContainer}>
         <View style={styles.card} onPress={pressHandler}>
@@ -74,11 +90,16 @@ export default function Deck({ data, navigation, route }) {
           )}
 
           {deckState === DECK_FINISHED && (
-            <Button
-              style={styles.button}
-              title={"Restart"}
-              onPress={restartHandler}
-            />
+            <View>
+              <Text>Correct answers: {correct}</Text>
+              <Text>Wrong answers: {wrong}</Text>
+
+              <Button
+                style={styles.button}
+                title={"Restart"}
+                onPress={restartHandler}
+              />
+            </View>
           )}
         </View>
       </View>
@@ -87,6 +108,7 @@ export default function Deck({ data, navigation, route }) {
           <Button
             style={buttonStyle.button}
             title={"Show Answer"}
+            disabled={deckState === DECK_FINISHED}
             onPress={showAnswerHandler}
           />
         </View>
