@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -6,14 +6,34 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import StartQuiz from "./components/StartQuiz";
+import NewDeck from "./components/NewDeck";
+
+import DATA from "./helpers/DATA";
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  /*
+  const [decks, setDecks] = useState(DATA);
+
+  const addNewDeck = (name) => {
+    const newDeck = {
+      title: name,
+      cards: [],
+    };
+
+    DATA.push(newDeck);
+  };
+*/
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Decks" component={Decks} />
+        <Stack.Screen
+          name="Decks"
+          component={Decks}
+          initialParams={{ newDeckName: "" }}
+        />
+        <Stack.Screen name="NewDeck" component={NewDeck} />
         <Stack.Screen
           name="StartQuiz"
           component={StartQuiz}

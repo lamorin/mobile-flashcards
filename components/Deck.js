@@ -2,6 +2,7 @@ import { CurrentRenderContext } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Button, Pressable, View, StyleSheet, Text } from "react-native";
 import { isEnabled } from "react-native/Libraries/Performance/Systrace";
+import buttonsStyleObject from "../componentStyles/Buttons";
 
 import DATA from "../helpers/DATA";
 import Decks from "./Decks";
@@ -25,7 +26,6 @@ export default function Deck({ data, navigation, route }) {
 
   const pressHandler = () => {
     if (isFront) {
-      setIsFront(!isFront);
     }
   };
 
@@ -50,6 +50,10 @@ export default function Deck({ data, navigation, route }) {
     setIsFront(true);
   };
 
+  const showAnswerHandler = () => {
+    setIsFront(!isFront);
+  };
+
   if (deck.cards.length === 0) {
     return (
       <View style={styles.item}>
@@ -61,10 +65,10 @@ export default function Deck({ data, navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.questionsNumber}>
-        Question: {currentCardIndex + 1}
+        Questions remaining: {deck.cards.length - currentCardIndex - 1}
       </Text>
       <View style={styles.cardContainer}>
-        <Pressable style={styles.card} onPress={pressHandler}>
+        <View style={styles.card} onPress={pressHandler}>
           {deckState === DECK_STARTED && (
             <Text style={styles.title}>
               {isFront ? card.faceText : card.backText}
@@ -76,30 +80,36 @@ export default function Deck({ data, navigation, route }) {
               style={styles.button}
               title={"Restart"}
               onPress={restartHandler}
-            >
-              Restart
-            </Button>
+            />
           )}
-        </Pressable>
+        </View>
       </View>
-      <View style={styles.buttonsContainerRow}>
-        <Button
-          style={styles.button}
-          title={"Correct"}
-          disabled={isFront || deckState === DECK_FINISHED}
-          onPress={correctAnswerHandler}
-        >
-          Correct
-        </Button>
-        <Button
-          style={styles.button}
-          title={"Wrong"}
-          disabled={isFront || deckState === DECK_FINISHED}
-          onPress={wrongAnswerHandler}
-        >
-          Wrong
-        </Button>
-      </View>
+      {isFront && (
+        <View style={buttonStyle.buttonsContainerColumn}>
+          <Button
+            style={buttonStyle.button}
+            title={"Show Answer"}
+            onPress={showAnswerHandler}
+          />
+        </View>
+      )}
+      {!isFront && (
+        <View style={buttonStyle.buttonsContainerRow}>
+          <Button
+            style={buttonStyle.button}
+            title={"Correct"}
+            disabled={isFront || deckState === DECK_FINISHED}
+            onPress={correctAnswerHandler}
+          />
+
+          <Button
+            style={buttonStyle.button}
+            title={"Wrong"}
+            disabled={isFront || deckState === DECK_FINISHED}
+            onPress={wrongAnswerHandler}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -108,6 +118,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
     flex: 1,
+    paddingBottom: 30,
   },
   cardContainer: {
     flex: 1,
@@ -136,14 +147,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#fff",
   },
-  buttonsContainerRow: {
-    borderWidth: 5,
-    padding: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    borderWidth: 5,
-    borderColor: "black",
-  },
 });
+
+const buttonStyle = StyleSheet.create(buttonsStyleObject);

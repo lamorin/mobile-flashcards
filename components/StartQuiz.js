@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { Button, Pressable, View, StyleSheet, Text } from "react-native";
 
-import DATA from "../helpers/DATA";
 import Decks from "./Decks";
 
-export default function StartQuiz({ data, navigation, route }) {
-  const { index, title } = route.params;
+export default function StartQuiz({ navigation, route }) {
+  const { title, deck } = route.params;
 
   let [isFront, setIsFront] = useState(true);
-
-  const deck = DATA[index];
-
   let card = deck.cards[0];
 
   const pressHandler = () => {
@@ -28,16 +24,16 @@ export default function StartQuiz({ data, navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.questionsNumber}>Questions: {deck.cards.length}</Text>
+      <Text style={styles.questionsNumber}>
+        Number of questions: {deck.cards.length}
+      </Text>
       <View style={styles.cardContainer}>
         <Pressable style={styles.card} onPress={pressHandler}>
-          <Text style={styles.title}>Start Quiz</Text>
+          <Text style={styles.title}>Start a Quiz</Text>
         </Pressable>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button style={styles.button} title={"Add Card"}>
-          Bouton
-        </Button>
+        <Button style={styles.button} title={"Add Card"} />
       </View>
     </View>
   );
@@ -47,6 +43,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
     flex: 1,
+    paddingBottom: 30,
   },
   cardContainer: {
     flex: 1,

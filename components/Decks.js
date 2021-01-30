@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import buttonsStyleObject from "../componentStyles/Buttons";
 import {
+  Button,
   SafeAreaView,
   View,
   Text,
@@ -11,34 +13,57 @@ import {
 
 import DATA from "../helpers/DATA";
 
-export default function Decks({ navigation }) {
+export default function Decks({ navigation, route }) {
+  const { newDeckName } = route.params;
+  const [decks, setDecks] = useState(DATA);
+
+  React.useEffect(() => {
+    if (route.params?.newDeck) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+      setDecks([...decks, route.params.newDeck]);
+    }
+  }, [route.params?.newDeck]);
+
   const deck = ({ item, index }) => (
     <DeckItem
       title={item.title}
       navigation={navigation}
       deckId={item.id}
       index={index}
+      decks={decks}
     ></DeckItem>
   );
+
+  const addDeckHandler = () => {
+    navigation.navigate("NewDeck");
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={DATA}
+        data={decks}
         renderItem={deck}
         keyExtractor={(deck) => deck.id}
       />
+      <View style={buttonStyle.buttonsContainerColumn}>
+        <Button
+          title="Add deck"
+          onPress={addDeckHandler}
+          style={buttonStyle.button}
+        />
+      </View>
     </SafeAreaView>
   );
 }
 
 function DeckItem(props) {
-  const { index } = props;
-  const deck = DATA[index];
+  const { index, decks } = props;
+  const deck = decks[index];
   const title = deck.title;
 
   const onDeckPress = () => {
-    props.navigation.navigate("StartQuiz", { index, title });
+    props.navigation.navigate("StartQuiz", { deck: decks[index], title });
   };
 
   return (
@@ -72,11 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-});
-*/
+const buttonStyle = StyleSheet.create(buttonsStyleObject);
