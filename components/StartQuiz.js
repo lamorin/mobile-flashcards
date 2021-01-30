@@ -28,7 +28,7 @@ export default function StartQuiz({ navigation, route }) {
 
   const pressHandler = () => {
     //setIsFront(!isFront);
-    navigation.navigate("Quiz", { deck });
+    navigation.navigate("Quiz", { deck, title });
   };
 
   const newCardHandler = () => {
