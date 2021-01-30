@@ -11,14 +11,12 @@ export default function Deck({ data, navigation, route }) {
   const DECK_STARTED = "DECK_STARTED";
   const DECK_FINISHED = "DECK_FINISHED";
 
-  const { index } = route.params;
+  const { deck } = route.params;
 
   let [isFront, setIsFront] = useState(true);
 
   let [currentCardIndex, setCurrentCardIndex] = useState(0);
   let [deckState, setDeckState] = useState(DECK_STARTED);
-
-  const deck = DATA[index];
 
   let card = deck.cards[currentCardIndex || 0];
 

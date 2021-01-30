@@ -5,13 +5,17 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   Pressable,
 } from "react-native";
 
-export default function NewDeck(props) {
-  const { faceText, backText } = props;
+import buttonsStyleObject from "../componentStyles/Buttons";
 
+import { createNewCard } from "../helpers/dataManipulationFunctions";
+
+const buttonStyle = StyleSheet.create(buttonsStyleObject);
+
+export default function NewCard({ navigation }) {
   const [questionText, setQuestionText] = useState("");
 
   const [answerText, setAnswerText] = useState("");
@@ -22,6 +26,11 @@ export default function NewDeck(props) {
 
   const onChangeAnswerText = (text) => {
     setAnswerText(text);
+  };
+
+  const saveHandler = () => {
+    const newCard = createNewCard(questionText, answerText);
+    navigation.navigate("StartQuiz", { newCard });
   };
 
   return (
@@ -40,6 +49,13 @@ export default function NewDeck(props) {
           value={answerText}
         />
       </View>
+      <TouchableOpacity
+        style={buttonStyle.touchable}
+        title="Save"
+        onPress={saveHandler}
+      >
+        <Text style={buttonStyle.touchableText}>Save</Text>
+      </TouchableOpacity>
     </View>
   );
 }

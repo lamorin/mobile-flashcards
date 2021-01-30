@@ -13,6 +13,8 @@ import {
 
 import DATA from "../helpers/DATA";
 
+import { saveDeck } from "../helpers/dataManipulationFunctions";
+
 export default function Decks({ navigation, route }) {
   const { newDeckName } = route.params;
   const [decks, setDecks] = useState(DATA);
@@ -21,7 +23,8 @@ export default function Decks({ navigation, route }) {
     if (route.params?.newDeck) {
       // Post updated, do something with `route.params.post`
       // For example, send the post to the server
-      setDecks([...decks, route.params.newDeck]);
+      saveDeck(route.params.newDeck);
+      setDecks([...decks]);
     }
   }, [route.params?.newDeck]);
 

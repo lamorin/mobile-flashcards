@@ -7,24 +7,13 @@ import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import StartQuiz from "./components/StartQuiz";
 import NewDeck from "./components/NewDeck";
+import NewCard from "./components/NewCard";
 
 import DATA from "./helpers/DATA";
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  /*
-  const [decks, setDecks] = useState(DATA);
-
-  const addNewDeck = (name) => {
-    const newDeck = {
-      title: name,
-      cards: [],
-    };
-
-    DATA.push(newDeck);
-  };
-*/
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -42,6 +31,7 @@ const App = () => {
             deckId: route.params.index,
           })}
         />
+        <Stack.Screen name="NewCard" component={NewCard} />
         <Stack.Screen
           name="Quiz"
           component={Deck}
