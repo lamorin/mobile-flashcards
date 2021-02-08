@@ -10,10 +10,13 @@ import NewDeck from "./components/NewDeck";
 import NewCard from "./components/NewCard";
 
 import DATA from "./helpers/DATA";
+import { setLocalNotification } from "./helpers/helpers";
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  setLocalNotification();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
