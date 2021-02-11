@@ -69,9 +69,12 @@ export default function Deck({ data, navigation, route }) {
   };
 
   if (deck.cards.length === 0) {
+    alert("SDF");
     return (
-      <View style={styles.item}>
-        <Text style={styles.title}>No cards</Text>
+      <View style={styles.cardContainer}>
+        <View style={styles.card}>
+          <Text style={styles.title}>No </Text>
+        </View>
       </View>
     );
   }
@@ -104,17 +107,17 @@ export default function Deck({ data, navigation, route }) {
             <View>
               <Text>Correct answers: {correct}</Text>
               <Text>Wrong answers: {wrong}</Text>
-
-              <Button
-                style={styles.button}
-                title={"Restart"}
+              <TouchableOpacity
+                style={[buttonStyle.touchable, { width: 120, marginTop: 20 }]}
                 onPress={restartHandler}
-              />
+              >
+                <Text style={buttonStyle.touchableText}>Restart</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
       </View>
-      {isFront && (
+      {isFront && deckState !== DECK_FINISHED && (
         <TouchableOpacity
           style={[buttonStyle.touchable, { width: 200 }]}
           title={"Show Answer"}

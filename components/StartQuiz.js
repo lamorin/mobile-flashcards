@@ -42,10 +42,14 @@ export default function StartQuiz({ navigation, route }) {
 
   if (deckState.cards.length === 0) {
     return (
-      <View style={styles.item}>
-        <Text style={styles.title}>No cards</Text>
+      <View style={styles.container}>
+        <View style={styles.cardContainer}>
+          <View style={styles.card}>
+            <Text style={styles.title}>No Cards</Text>
+          </View>
+        </View>
         <TouchableOpacity
-          style={[buttonStyle.touchable, { width: 150 }]}
+          style={[buttonStyle.touchable, { width: 200 }]}
           onPress={newCardHandler}
         >
           <Text style={buttonStyle.touchableText}>Create New Card</Text>
