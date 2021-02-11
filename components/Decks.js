@@ -54,7 +54,7 @@ export default function Decks({ navigation, route }) {
       />
 
       <TouchableOpacity
-        style={[buttonStyle.touchable, { width: 200 }]}
+        style={[buttonStyle.touchable, { width: 200, marginBottom: 20 }]}
         onPress={addDeckHandler}
       >
         <Text style={buttonStyle.touchableText}>ADD DECK</Text>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    paddingBottom: 50,
+    justifyContent: "space-between",
   },
   deck: {
     borderWidth: 5,
