@@ -15,3 +15,9 @@ Start the server: `yarn start` and then access the app through Expo's mobile app
 Execute `yarn ios` to run the project on the iOS simulator (XCode must be up to date and configured correcly).
 
 Execute `yarn android` to run the project on the Android simulator (Android SDK and Android AVD must be configured correctly).
+
+## Tested on:
+
+- iOS emulator
+- iOS Expo Go
+- Android emulator
