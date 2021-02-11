@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@react-navigation/native";
 import React from "react";
 import { useState } from "react";
 import {
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import theme from "../componentStyles/colors";
 
 import buttonsStyleObject from "../componentStyles/Buttons";
 
@@ -34,27 +36,50 @@ export default function NewCard({ navigation }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.container}>
-        <Text>Question: </Text>
+        <Text>QUESTION: </Text>
         <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          style={{
+            height: 50,
+            fontSize: 16,
+            backgroundColor: theme.whiteLight,
+            borderColor: theme.whiteDark,
+            borderRadius: 5,
+            borderWidth: 1,
+            paddingLeft: 5,
+            borderColor: theme.primary,
+            borderWidth: 3,
+          }}
           onChangeText={(text) => onChangeQuestionText(text)}
           value={questionText}
         />
-        <Text style={styles.label}>Answer: </Text>
+        <Text style={styles.label}>ANSWER: </Text>
         <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
+          style={{
+            height: 50,
+            fontSize: 16,
+            backgroundColor: theme.whiteLight,
+            borderColor: theme.whiteDark,
+            borderRadius: 5,
+            borderWidth: 1,
+            paddingLeft: 5,
+            borderColor: theme.primary,
+            borderWidth: 3,
+          }}
           onChangeText={(text) => onChangeAnswerText(text)}
           value={answerText}
         />
       </View>
       <TouchableOpacity
-        style={buttonStyle.touchable}
-        title="Save"
+        style={[
+          buttonStyle.touchable,
+          { width: 150, marginBotton: 50, borderWidth: 1 },
+        ]}
+        title="save"
         onPress={saveHandler}
       >
-        <Text style={buttonStyle.touchableText}>Save</Text>
+        <Text style={buttonStyle.touchableText}>SAVE</Text>
       </TouchableOpacity>
     </View>
   );
@@ -63,6 +88,9 @@ export default function NewCard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    paddingBottom: 50,
+
+    flex: 1,
   },
   label: {
     marginTop: 50,

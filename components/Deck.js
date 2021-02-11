@@ -1,8 +1,17 @@
 import { CurrentRenderContext } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Button, Pressable, View, StyleSheet, Text } from "react-native";
+import {
+  Button,
+  Pressable,
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 import buttonsStyleObject from "../componentStyles/Buttons";
+
+import theme from "../componentStyles/colors";
 
 import DATA from "../helpers/DATA";
 import Decks from "./Decks";
@@ -20,7 +29,7 @@ export default function Deck({ data, navigation, route }) {
   let [correct, setCorrect] = useState(0);
   let [wrong, setWrong] = useState(0);
 
-  let card = deck.cards[currentCardIndex || 0];
+  let card = deck.cards[currentCardIndex];
 
   const lastIndex = deck.cards.length - 1;
 
@@ -33,26 +42,18 @@ export default function Deck({ data, navigation, route }) {
     return unsubscribe;
   }, [navigation]);
 
-  const pressHandler = () => {
-    if (isFront) {
-    }
-  };
-
   const correctAnswerHandler = () => {
     setCorrect(correct + 1);
     currentCardIndex === deck.cards.length - 1 && setDeckState(DECK_FINISHED);
-    deckState !== DECK_FINISHED &&
-      setIsFront(true) &&
-      setCurrentCardIndex(currentCardIndex + 1);
-    setIsFront(true);
+    deckState !== DECK_FINISHED && setIsFront(true);
+    deckState !== DECK_FINISHED && setCurrentCardIndex(currentCardIndex + 1);
   };
 
   const wrongAnswerHandler = () => {
     setWrong(wrong + 1);
     currentCardIndex === deck.cards.length - 1 && setDeckState(DECK_FINISHED);
-    deckState !== DECK_FINISHED &&
-      setIsFront(true) &&
-      setCurrentCardIndex(currentCardIndex + 1);
+    deckState !== DECK_FINISHED && setIsFront(true);
+    deckState !== DECK_FINISHED && setCurrentCardIndex(currentCardIndex + 1);
   };
 
   const restartHandler = () => {
@@ -77,12 +78,22 @@ export default function Deck({ data, navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.questionsNumber}>
-        Questions remaining:{" "}
-        {deckState === DECK_FINISHED ? 0 : deck.cards.length - currentCardIndex}
-      </Text>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: 50,
+        }}
+      >
+        <Text style={[styles.questionsNumber]}>
+          Questions remaining:{" "}
+          {deckState === DECK_FINISHED
+            ? 0
+            : deck.cards.length - currentCardIndex}
+        </Text>
+      </View>
       <View style={styles.cardContainer}>
-        <View style={styles.card} onPress={pressHandler}>
+        <View style={styles.card}>
           {deckState === DECK_STARTED && (
             <Text style={styles.title}>
               {isFront ? card.faceText : card.backText}
@@ -104,30 +115,32 @@ export default function Deck({ data, navigation, route }) {
         </View>
       </View>
       {isFront && (
-        <View style={buttonStyle.buttonsContainerColumn}>
-          <Button
-            style={buttonStyle.button}
-            title={"Show Answer"}
-            disabled={deckState === DECK_FINISHED}
-            onPress={showAnswerHandler}
-          />
-        </View>
+        <TouchableOpacity
+          style={[buttonStyle.touchable, { width: 200 }]}
+          title={"Show Answer"}
+          disabled={deckState === DECK_FINISHED}
+          onPress={showAnswerHandler}
+        >
+          <Text style={buttonStyle.touchableText}>SHOW ANSWER</Text>
+        </TouchableOpacity>
       )}
       {!isFront && (
         <View style={buttonStyle.buttonsContainerRow}>
-          <Button
-            style={buttonStyle.button}
+          <TouchableOpacity
+            style={[buttonStyle.touchable, { width: 120 }]}
             title={"Correct"}
             disabled={isFront || deckState === DECK_FINISHED}
             onPress={correctAnswerHandler}
-          />
+          >
+            <Text style={buttonStyle.touchableText}>Correct</Text>
+          </TouchableOpacity>
 
-          <Button
-            style={buttonStyle.button}
-            title={"Wrong"}
-            disabled={isFront || deckState === DECK_FINISHED}
+          <TouchableOpacity
+            style={[buttonStyle.touchable, { width: 120 }]}
             onPress={wrongAnswerHandler}
-          />
+          >
+            <Text style={buttonStyle.touchableText}>Wrong</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -138,19 +151,19 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
     flex: 1,
-    paddingBottom: 30,
+    paddingBottom: 50,
   },
   cardContainer: {
     flex: 1,
     justifyContent: "center",
   },
   questionsNumber: {
-    textAlign: "right",
+    textAlign: "center",
   },
   card: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dddddd",
+    backgroundColor: theme.secondary,
     borderRadius: 10,
     height: 500,
     padding: 16,
@@ -161,11 +174,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff",
+    color: theme.whiteDark,
   },
   subtitle: {
     fontSize: 16,
-    color: "#fff",
+    color: theme.whiteDark,
   },
 });
 

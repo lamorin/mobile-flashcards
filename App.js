@@ -34,7 +34,13 @@ const App = () => {
             deckId: route.params.index,
           })}
         />
-        <Stack.Screen name="NewCard" component={NewCard} />
+        <Stack.Screen
+          name="NewCard"
+          component={NewCard}
+          options={({ route }) => ({
+            title: "New Card",
+          })}
+        />
         <Stack.Screen
           name="Quiz"
           component={Deck}

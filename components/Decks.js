@@ -9,11 +9,14 @@ import {
   StatusBar,
   StyleSheet,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 
 import DATA from "../helpers/DATA";
 
 import { saveDeck } from "../helpers/dataManipulationFunctions";
+
+import theme from "../componentStyles/colors";
 
 export default function Decks({ navigation, route }) {
   const { newDeckName } = route.params;
@@ -49,13 +52,13 @@ export default function Decks({ navigation, route }) {
         renderItem={deck}
         keyExtractor={(deck) => deck.id}
       />
-      <View style={buttonStyle.buttonsContainerColumn}>
-        <Button
-          title="Add deck"
-          onPress={addDeckHandler}
-          style={buttonStyle.button}
-        />
-      </View>
+
+      <TouchableOpacity
+        style={[buttonStyle.touchable, { width: 200 }]}
+        onPress={addDeckHandler}
+      >
+        <Text style={buttonStyle.touchableText}>ADD DECK</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -81,10 +84,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    paddingBottom: 50,
   },
   deck: {
     borderWidth: 5,
-    borderColor: "#dddddd",
+    borderColor: theme.primary,
     borderRadius: 5,
     padding: 10,
     marginTop: StatusBar.currentHeight || 0,

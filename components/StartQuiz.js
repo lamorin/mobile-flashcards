@@ -11,6 +11,8 @@ import { saveCard } from "../helpers/dataManipulationFunctions";
 
 import buttonsStyleObject from "../componentStyles/Buttons";
 
+import theme from "../componentStyles/colors";
+
 export default function StartQuiz({ navigation, route }) {
   const { title, deck } = route.params;
 
@@ -54,16 +56,24 @@ export default function StartQuiz({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.questionsNumber}>
-        Number of questions: {deckState.cards.length}
-      </Text>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: 50,
+        }}
+      >
+        <Text style={[styles.questionsNumber]}>
+          Number of questions: {deckState.cards.length}
+        </Text>
+      </View>
       <View style={styles.cardContainer}>
         <Pressable style={styles.card} onPress={pressHandler}>
           <Text style={styles.title}>Start a Quiz</Text>
         </Pressable>
       </View>
       <TouchableOpacity
-        style={[buttonStyle.touchable, { width: 150 }]}
+        style={[buttonStyle.touchable, { width: 200 }]}
         onPress={newCardHandler}
       >
         <Text style={buttonStyle.touchableText}>Create New Card</Text>
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
     flex: 1,
-    paddingBottom: 30,
+    paddingBottom: 50,
   },
   cardContainer: {
     flex: 1,
@@ -88,7 +98,7 @@ const styles = StyleSheet.create({
   card: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dddddd",
+    backgroundColor: theme.secondary,
     borderRadius: 10,
     height: 500,
     padding: 16,
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#fff",
+    color: theme.whiteDark,
   },
   subtitle: {
     fontSize: 16,

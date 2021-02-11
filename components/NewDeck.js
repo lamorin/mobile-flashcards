@@ -16,6 +16,8 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import buttonsStyleObject from "../componentStyles/Buttons";
 import DATA from "../helpers/DATA";
 
+import theme from "../componentStyles/colors";
+
 import { createNewDeck } from "../helpers/dataManipulationFunctions";
 
 export default function NewDeck({ navigation }) {
@@ -32,18 +34,23 @@ export default function NewDeck({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Deck Name: </Text>
-      <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          paddingLeft: 5,
-          marginBottom: 20,
-        }}
-        onChangeText={(text) => onChangeDeckName(text)}
-        value={deckName}
-      />
+      <View>
+        <Text>Deck Name: </Text>
+        <TextInput
+          style={{
+            height: 50,
+            borderColor: "gray",
+            borderWidth: 1,
+            paddingLeft: 5,
+            marginBottom: 20,
+            borderRadius: 5,
+            borderWidth: 3,
+            borderColor: theme.primary,
+          }}
+          onChangeText={(text) => onChangeDeckName(text)}
+          value={deckName}
+        />
+      </View>
 
       <TouchableOpacity
         style={buttonStyle.touchable}
@@ -59,7 +66,9 @@ export default function NewDeck({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    alignItems: "stretch",
+    paddingBottom: 50,
+    justifyContent: "space-between",
+    flex: 1,
   },
   label: {
     marginTop: 50,
